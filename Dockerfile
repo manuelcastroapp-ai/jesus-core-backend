@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.10
 
 WORKDIR /app
 
@@ -7,10 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Render y cualquier plataforma cloud asignan el puerto dinámicamente
-ENV PORT=$PORT
+EXPOSE 8000
 
-EXPOSE $PORT
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
 
